@@ -18,8 +18,8 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.title("Cancer Metastasis Detection Assistant")
-st.write("Hi, this is a simple program about cancer metastasis discrimination.")
+st.title("Neuroblastoma Detection Assistant")
+st.write("Hi, this is a simple program about neuroblastoma discrimination.")
 st.write("You can enter the relevant variables and get a preliminary discriminatory result.")
 st.write("Our results are not the truth, and intelligently assist you in the discrimination of the likelihood of "
          "cancer metastasis.")
@@ -44,48 +44,25 @@ for i in range(len(cols)):
     col = cols[i]
     with open('LE/label_encoder_{}.pkl'.format(col), 'rb') as f:
         le = pickle.load(f)
-        data_transform = le.transform(np.array(data[i]).reshape(-1,))
+        data_transform = le.transform(np.array(data[i]).reshape(-1, ))
         data_input.append(data_transform)
 
 data_array = np.array(data_input).reshape(1, -1)
 data_dataframe = pd.DataFrame(data_array, columns=cols)
 model = joblib.load('models/LR.pkl')
 
-
-styled_text_1 = """  
-<style>  
-.large-text {  
-    font-size: 24px; /* 设置字体大小 */  
-    color: white; /* 设置字体颜色，与 Streamlit 的成功消息背景相协调 */  
-    background-color: #FFA500; /* 设置背景颜色，与 Streamlit 的成功消息背景相同 */  
-    padding: 10px; /* 添加内边距，以模仿 Streamlit 的成功消息样式 */  
-    border-radius: 4px; /* 添加圆角 */  
-}  
-</style>  
-<div class="large-text">  
-According to our calculation, there is a large transfer risk! 
-</div>  
-"""
-styled_text_0 = """  
-<style>  
-.large-text {  
-    font-size: 24px; /* 设置字体大小 */  
-    color: white; /* 设置字体颜色，与 Streamlit 的成功消息背景相协调 */  
-    background-color: #28a745; /* 设置背景颜色，与 Streamlit 的成功消息背景相同 */  
-    padding: 10px; /* 添加内边距，以模仿 Streamlit 的成功消息样式 */  
-    border-radius: 4px; /* 添加圆角 */  
-}  
-</style>  
-<div class="large-text">  
-According to our calculations, there is a small transfer risk! 
-</div>  
-"""
-
-
 if st.sidebar.button("Predict"):
-    pre = model.predict(data_dataframe)
-    if pre:
-        st.markdown(styled_text_1, unsafe_allow_html=True)
-    else:
-        st.markdown(styled_text_0, unsafe_allow_html=True)
+    pre = model.predict_proba(data_dataframe)[:, 1][0]
 
+    if pre > 0.5:
+        st.markdown("""  
+        <span style="color: black; font-size: 50px; background-color: #FFFF00;">  
+        Transition probability: {:.0f}% 
+        </span>  
+        """.format(pre * 100), unsafe_allow_html=True)
+    else:
+        st.markdown("""  
+        <span style="color: black; font-size: 50px; background-color: #63B8FF;">  
+        Transition probability: {:.0f}% 
+        </span>  
+        """.format(pre * 100), unsafe_allow_html=True)
