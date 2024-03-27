@@ -14,6 +14,6 @@ https://cancer-metastasis-detection-assistant-jljpfsxbfe5gv6tcwezrqg.streamlit.a
 
 ## Contributing
 
-AiyoWeiJ
+AiyoWeiJ 
  
 
