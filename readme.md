@@ -1,4 +1,7 @@
-# Introduction
+# Neuroblastoma Distant Metastasis Detection Assistant
+
+
+## Introduction
 
 This is a simple program about neuroblastoma discrimination.
 You can enter the relevant variables and get a preliminary discriminatory result.

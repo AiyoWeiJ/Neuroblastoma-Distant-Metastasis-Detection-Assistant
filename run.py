@@ -18,7 +18,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.title("Neuroblastoma Detection Assistant")
+st.title("Neuroblastoma Distant Metastasis Detection Assistant")
 st.write("Hi, this is a simple program about neuroblastoma discrimination.")
 st.write("You can enter the relevant variables and get a preliminary discriminatory result.")
 st.write("Our results are not the truth, and intelligently assist you in the discrimination of the likelihood of "
@@ -57,12 +57,12 @@ if st.sidebar.button("Predict"):
     if pre > 0.5:
         st.markdown("""  
         <span style="color: black; font-size: 50px; background-color: #FFFF00;">  
-        Transition probability: {:.0f}% 
+        Probability of distant metastasis: {:.0f}% 
         </span>  
         """.format(pre * 100), unsafe_allow_html=True)
     else:
         st.markdown("""  
         <span style="color: black; font-size: 50px; background-color: #63B8FF;">  
-        Transition probability: {:.0f}% 
+        Probability of distant metastasis: {:.0f}% 
         </span>  
         """.format(pre * 100), unsafe_allow_html=True)
