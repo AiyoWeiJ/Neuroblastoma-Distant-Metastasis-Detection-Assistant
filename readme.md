@@ -14,6 +14,6 @@ https://neuroblastoma-distant-metastasis-detection-assistant-bagytzysf.streamlit
 
 ## Contributing
 
-AiyoWeiJ 
+AiyoWeiJ
  
 
